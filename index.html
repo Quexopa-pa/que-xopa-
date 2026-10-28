@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#075747">
+<title>Qué Xopa | Descubre Panamá</title>
+<style>
+:root{--verde:#075747;--crema:#f6f3eb;--oro:#f2c14e}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--crema);color:#19372e}
+header{background:var(--verde);color:white;padding:24px 18px}
+header h1{font-size:34px;margin:0 0 8px}
+header p{margin:0;line-height:1.5}
+main{max-width:950px;margin:auto;padding:20px 15px}
+h2{font-size:22px}
+.buscador{width:100%;padding:13px;border:1px solid #ccc;border-radius:12px;font-size:16px}
+.botones{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+button{cursor:pointer;border:0;border-radius:22px;padding:11px 15px;font-weight:bold}
+.filtro{background:white;color:var(--verde);border:1px solid #b6cfc4}
+.filtro.activo,.principal{background:var(--verde);color:white}
+.destacado{background:#e5eee6;border-radius:16px;padding:18px;margin:18px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.tarjeta{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 9px #00000012}
+.foto{height:125px;background:#d8e8de;display:flex;align-items:center;justify-content:center;font-size:48px}
+.contenido{padding:15px}
+.contenido h3{margin:0 0 8px}
+.contenido p{line-height:1.45;font-size:14px}
+.precio{font-weight:bold;color:var(--verde)}
+.accion{width:100%;margin-top:8px}
+.nota{font-size:12px;color:#5b6b63;line-height:1.5}
+footer{text-align:center;background:var(--verde);color:white;padding:22px;margin-top:30px}
+#mensaje{font-size:14px;min-height:20px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🌴 Qué Xopa</h1>
+  <p>Conoce Panamá, conecta con su gente y vive más por menos 🇵🇦</p>
+</header>
+<main>
+  <input id="busqueda" class="buscador" placeholder="🔎 Busca lugares o actividades..." aria-label="Buscar lugares">
+  <section class="destacado">
+    <h2>¿Qué xopa? ¿Qué hacemos hoy?</h2>
+    <p>Descubre nuevos lugares, encuentra aventuras y organiza tu próximo paseo.</p>
+    <button class="principal" onclick="document.getElementById('lugares').scrollIntoView({behavior:'smooth'})">Explorar Panamá ↓</button>
+  </section>
+  <h2>💵 Encuentra tu presupuesto</h2>
+  <div class="botones">
+    <button class="filtro activo" data-filtro="todos">Todos los planes</button>
+    <button class="filtro" data-filtro="gratis">Gratis</button>
+    <button class="filtro" data-filtro="10">Hasta $10</button>
+    <button class="filtro" data-filtro="flexible">Presupuesto flexible</button>
+  </div>
+  <h2 id="lugares">📍 Lugares para descubrir</h2>
+  <div class="grid" id="tarjetas">
+    <article class="tarjeta" data-nombre="cinta costera panama paseo gratis">
+      <div class="foto">🌆</div><div class="contenido">
+      <h3>Cinta Costera</h3><p>Ciudad de Panamá · Paseo al aire libre</p>
+      <p class="precio">Acceso al paseo: gratis</p>
+      <p>Ideal para caminar, disfrutar las vistas y hacer ejercicio. Transporte y consumos aparte.</p>
+      <button class="filtro accion" onclick="guardarPlan('Cinta Costera')">♡ Me interesa</button>
+      </div>
+    </article>
+    <article class="tarjeta" data-nombre="casco antiguo cultura historia panama">
+      <div class="foto">🏛️</div><div class="contenido">
+      <h3>Casco Antiguo</h3><p>Ciudad de Panamá · Cultura e historia</p>
+      <p class="precio">Costos variables</p>
+      <p>Explora sus calles históricas. Verifica horarios, entradas y transporte antes de salir.</p>
+      <button class="filtro accion" onclick="guardarPlan('Casco Antiguo')">♡ Me interesa</button>
+      </div>
+    </article>
+    <article class="tarjeta" data-nombre="cerro ancon naturaleza senderismo gratis">
+      <div class="foto">🌳</div><div class="contenido">
+      <h3>Cerro Ancón</h3><p>Ciudad de Panamá · Naturaleza</p>
+      <p class="precio">Sendero: generalmente gratis</p>
+      <p>Una opción para caminar y contemplar la ciudad. Comprueba las condiciones de acceso.</p>
+      <button class="filtro accion" onclick="guardarPlan('Cerro Ancón')">♡ Me interesa</button>
+      </div>
+    </article>
+    <article class="tarjeta" data-nombre="amador calzada paseo bicicleta">
+      <div class="foto">🌊</div><div class="contenido">
+      <h3>Calzada de Amador</h3><p>Ciudad de Panamá · Mar y paseo</p>
+      <p class="precio">Paseo: gratis</p>
+      <p>Disfruta las vistas al mar. Bicicletas, comida y transporte pueden tener costo.</p>
+      <button class="filtro accion" onclick="guardarPlan('Calzada de Amador')">♡ Me interesa</button>
+      </div>
+    </article>
+  </div>
+  <p id="sinResultados" hidden>No encontramos lugares con esa búsqueda.</p>
+  <h2>🤝 Haz amistades y turistea</h2>
+  <section class="destacado">
+    <p>¿Quieres conocer personas para compartir paseos y nuevas experiencias?</p>
+    <p>En la siguiente etapa agregaremos perfiles, grupos, invitaciones y herramientas de seguridad para mayores de 18 años.</p>
+    <button class="principal" onclick="alert('¡Estamos preparando la comunidad Qué Xopa!')">Próximamente: comunidad</button>
+  </section>
+  <p id="mensaje" aria-live="polite"></p>
+  <p class="nota">Qué Xopa es un proyecto en desarrollo. Los precios y condiciones deben verificarse antes de cada visita. Los presupuestos deben incluir transporte, comida y otras actividades cuando corresponda.</p>
+</main>
+<footer>
+  <strong>Qué Xopa 🇵🇦</strong>
+  <p>Descubre. Conecta. Turistea.</p>
+</footer>
+<script>
+let filtroActual='todos';
+const tarjetas=[...document.querySelectorAll('.tarjeta')];
+function actualizar(){
+ const q=document.getElementById('busqueda').value.toLowerCase().trim();
+ let visibles=0;
+ tarjetas.forEach(t=>{
+  const texto=t.innerText.toLowerCase()+' '+t.dataset.nombre;
+  const coincide=texto.includes(q);
+  t.hidden=!coincide;
+  if(coincide)visibles++;
+ });
+ document.getElementById('sinResultados').hidden=visibles>0;
+}
+document.getElementById('busqueda').addEventListener('input',actualizar);
+document.querySelectorAll('[data-filtro]').forEach(b=>{
+ b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-filtro]').forEach(x=>x.classList.remove('activo'));
+  b.classList.add('activo');
+  filtroActual=b.dataset.filtro;
+  document.getElementById('mensaje').textContent=
+   filtroActual==='gratis'?'Busca lugares con acceso gratuito y verifica posibles gastos adicionales.':
+   filtroActual==='10'?'Planifica un máximo de $10 por persona, incluyendo transporte y comida.':
+   filtroActual==='flexible'?'Explora actividades de diferentes precios y organiza tu propio presupuesto.':
+   'Explora todos los lugares disponibles.';
+ });
+});
+function guardarPlan(nombre){
+ document.getElementById('mensaje').textContent='¡Te interesa '+nombre+'! Los favoritos se podrán guardar en tu perfil en una próxima versión.';
+}
+</script>
+</body>
+</html>
